@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Katalog Film</string>
+    <string name="menu_movies">Daftar Film</string>
+    <string name="menu_favorites">Favorit</string>
+    <string name="menu_profile">Profil Pengguna</string>
+    <string name="search_hint">Cari judul film, genre...</string>
+    <string name="btn_add_favorite">Tambah ke Favorit</string>
+    <string name="btn_remove_favorite">Hapus Favorit</string>
+    <string name="btn_detail">Lihat Detail</string>
+    <string name="title_detail">Detail Film</string>
+    <string name="title_profile">Profil Mahasiswa</string>
+    <string name="label_synopsis">Sinopsis</string>
+    <string name="label_genre">Genre</string>
+    <string name="label_rating">Rating</string>
+    <string name="label_year">Tahun Rilis</string>
+    <string name="label_director">Sutradara</string>
+    <string name="label_trailer_web">Trailer YouTube (WebView)</string>
+    <string name="label_trailer_video">Trailer Teaser (VideoView)</string>
+    <string name="label_user_notes">Catatan / Review Pengguna</string>
+    <string name="hint_user_notes">Tulis review atau catatan pribadi tentang film ini...</string>
+    <string name="btn_save_note">Simpan Catatan</string>
+    <string name="note_saved">Catatan review berhasil disimpan!</string>
+    <string name="added_to_favorites">berhasil ditambahkan ke Favorit!</string>
+    <string name="removed_from_favorites">dihapus dari Favorit.</string>
+</resources>

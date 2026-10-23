@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.MyApplication" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorOnPrimary">@color/on_primary</item>
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="android:windowBackground">@color/cinema_dark</item>
+        <item name="android:statusBarColor">@color/cinema_dark</item>
+        <item name="android:navigationBarColor">@color/cinema_dark</item>
+    </style>
+
+    <style name="RoundedPosterShape">
+        <item name="cornerSize">10dp</item>
+    </style>
+
+    <style name="CircleImageShape">
+        <item name="cornerSize">50%</item>
+    </style>
+</resources>

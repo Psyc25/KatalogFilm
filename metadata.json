@@ -1,0 +1,6 @@
+{
+  "name": "Katalog Film",
+  "description": "Aplikasi Katalog Film Android dengan RecyclerView, Fragment, Intent, BottomNavigationView, WebView trailer, dan VideoView player.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
