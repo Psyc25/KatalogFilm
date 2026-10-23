@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Katalog Film - UTS Mobile Programming UNPAM</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23E50914'><path d='M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z'/></svg>">
+  <style>
+    :root {
+      --primary: #E50914;
+      --secondary: #FFC107;
+      --cinema-dark: #12141C;
+      --cinema-card: #1C2030;
+      --cinema-card-stroke: #2C324A;
+      --cinema-surface: #22273B;
+      --text-primary: #FFFFFF;
+      --text-secondary: #CBD5E1;
+      --text-muted: #8A96A8;
+      --favorite-red: #FF3B5C;
+      --rating-gold: #FFB800;
+      --unpam-blue: #1565C0;
+      --unpam-yellow: #FBC02D;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: #0b0c10;
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 16px;
+    }
+
+    /* Top Notice Banner */
+    .top-banner {
+      width: 100%;
+      max-width: 480px;
+      background: linear-gradient(90deg, #1565C0, #0D47A1);
+      padding: 10px 16px;
+      border-radius: 12px;
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .top-banner span { font-weight: 600; }
+    .top-banner .badge {
+      background: var(--unpam-yellow);
+      color: #000;
+      font-weight: bold;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 11px;
+    }
+
+    /* Phone Mockup Frame */
+    .phone-container {
+      width: 100%;
+      max-width: 440px;
+      height: 860px;
+      max-height: 92vh;
+      background-color: var(--cinema-dark);
+      border-radius: 36px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.7), 0 0 0 8px #1f2333;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Status Bar */
+    .status-bar {
+      height: 28px;
+      background-color: var(--cinema-surface);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* App Header */
+    .app-header {
+      background-color: var(--cinema-surface);
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid var(--cinema-card-stroke);
+    }
+    .app-header svg {
+      width: 28px;
+      height: 28px;
+      fill: var(--primary);
+    }
+    .app-header-text h1 {
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .app-header-text p {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* Main Content Area */
+    .screen-content {
+      flex: 1;
+      overflow-y: auto;
+      padding-bottom: 70px;
+    }
+
+    /* Bottom Navigation */
+    .bottom-nav {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      background-color: var(--cinema-surface);
+      border-top: 1px solid var(--cinema-card-stroke);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 10;
+    }
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 11px;
+      transition: color 0.2s;
+      background: none;
+      border: none;
+      outline: none;
+    }
+    .nav-item.active {
+      color: var(--primary);
+    }
+    .nav-item svg {
+      width: 22px;
+      height: 22px;
+      fill: currentColor;
+    }
+
+    /* Search Bar */
+    .search-box {
+      margin: 12px 16px 8px;
+      background-color: var(--cinema-surface);
+      border: 1px solid var(--cinema-card-stroke);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      height: 44px;
+    }
+    .search-box svg {
+      width: 18px;
+      height: 18px;
+      fill: var(--text-muted);
+      margin-right: 8px;
+    }
+    .search-box input {
+      flex: 1;
+      background: none;
+      border: none;
+      outline: none;
+      color: var(--text-primary);
+      font-size: 13px;
+    }
+    .search-box input::placeholder {
+      color: var(--text-muted);
+    }
+
+    /* Filter Chips */
+    .chip-scroll {
+      display: flex;
+      gap: 8px;
+      padding: 6px 16px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .chip-scroll::-webkit-scrollbar { display: none; }
+    .chip {
+      background-color: var(--cinema-surface);
+      color: var(--text-secondary);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      white-space: nowrap;
+      cursor: pointer;
+      border: 1px solid var(--cinema-card-stroke);
+      transition: all 0.2s;
+    }
+    .chip.active {
+      background-color: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+      font-weight: 600;
+    }
+
+    /* Section Info */
+    .list-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 18px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* Film Cards (RecyclerView style) */
+    .film-card {
+      background-color: var(--cinema-card);
+      border: 1px solid var(--cinema-card-stroke);
+      border-radius: 16px;
+      margin: 0 14px 12px;
+      padding: 12px;
+      display: flex;
+      gap: 12px;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.15s, border-color 0.15s;
+    }
+    .film-card:hover {
+      border-color: #3f4769;
+    }
+    .film-poster {
+      width: 90px;
+      height: 130px;
+      border-radius: 10px;
+      object-fit: cover;
+      background-color: var(--cinema-surface);
+      flex-shrink: 0;
+    }
+    .film-details {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .film-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.25;
+    }
+    .film-meta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    .film-meta .year { color: var(--secondary); font-weight: 600; }
+    .film-meta .rating-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      background: rgba(0,0,0,0.3);
+      padding: 2px 6px;
+      border-radius: 6px;
+      color: var(--rating-gold);
+      font-weight: bold;
+      font-size: 11px;
+    }
+    .film-genre {
+      display: inline-block;
+      background: rgba(255,255,255,0.06);
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-size: 10px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+      width: fit-content;
+    }
+    .film-synopsis {
+      font-size: 11px;
+      color: var(--text-muted);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-top: 4px;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .btn-fav {
+      flex: 1;
+      background-color: var(--cinema-surface);
+      border: 1px solid var(--cinema-card-stroke);
+      color: var(--text-secondary);
+      padding: 6px 8px;
+      border-radius: 8px;
+      font-size: 11px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+    .btn-fav.active {
+      color: var(--favorite-red);
+      border-color: rgba(255,59,92,0.4);
+    }
+    .btn-detail {
+      background-color: var(--primary);
+      border: none;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* Profile View */
+    .profile-view {
+      padding: 16px;
+    }
+    .profile-card {
+      background: linear-gradient(135deg, #1C2030, #151824);
+      border: 1.5px solid var(--unpam-blue);
+      border-radius: 18px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--cinema-surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid var(--secondary);
+    }
+    .avatar svg { width: 36px; height: 36px; fill: var(--secondary); }
+    .profile-info h2 { font-size: 17px; font-weight: 700; color: #fff; }
+    .profile-info .nim { font-size: 13px; color: var(--secondary); font-weight: 600; margin-top: 2px; }
+    .profile-info .kelas { font-size: 12px; color: var(--text-muted); }
+
+    .divider { height: 1px; background: var(--cinema-card-stroke); margin: 12px 0; }
+    .academic-info h3 { font-size: 13px; color: var(--unpam-yellow); font-weight: 700; }
+    .academic-info p { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .stat-card {
+      background: var(--cinema-card);
+      border: 1px solid var(--cinema-card-stroke);
+      border-radius: 12px;
+      padding: 10px;
+      text-align: center;
+    }
+    .stat-card .num { font-size: 18px; font-weight: 700; color: #fff; }
+    .stat-card.fav .num { color: var(--favorite-red); }
+    .stat-card.rev .num { color: var(--secondary); }
+    .stat-card .label { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
+
+    .rubric-card {
+      background: var(--cinema-card);
+      border: 1px solid var(--cinema-card-stroke);
+      border-radius: 14px;
+      padding: 14px;
+      font-size: 11px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+    .rubric-card h4 { font-size: 12px; color: #fff; margin-bottom: 6px; }
+
+    .btn-edit-profile {
+      width: 100%;
+      background: var(--cinema-surface);
+      border: 1px solid var(--cinema-card-stroke);
+      color: #fff;
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 12px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    /* Modal Detail Film */
+    .modal-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: 20;
+      display: none;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-bar {
+      height: 52px;
+      background: var(--cinema-surface);
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      gap: 12px;
+      position: sticky;
+      top: 0;
+      z-index: 5;
+    }
+    .btn-close-modal {
+      background: none;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+    }
+    .btn-close-modal svg { width: 22px; height: 22px; fill: #fff; }
+    .modal-title { font-size: 16px; font-weight: 700; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    .modal-body {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .modal-hero {
+      display: flex;
+      gap: 14px;
+    }
+    .modal-poster {
+      width: 110px;
+      height: 160px;
+      border-radius: 12px;
+      object-fit: cover;
+    }
+    .modal-meta {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .modal-meta h2 { font-size: 18px; color: #fff; line-height: 1.2; }
+    .modal-meta .rating { color: var(--rating-gold); font-size: 13px; font-weight: bold; }
+    .modal-meta .director { font-size: 12px; color: var(--text-muted); }
+
+    .player-card {
+      background: var(--cinema-card);
+      border: 1px solid var(--cinema-card-stroke);
+      border-radius: 12px;
+      padding: 12px;
+    }
+    .player-card .header-tag {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .player-card h3 { font-size: 13px; color: #fff; }
+    .player-card .badge { background: rgba(255,255,255,0.08); color: var(--secondary); font-size: 10px; padding: 2px 6px; border-radius: 4px; }
+    .player-frame {
+      width: 100%;
+      height: 190px;
+      border-radius: 8px;
+      background: #000;
+      overflow: hidden;
+      border: none;
+    }
+
+    .review-box textarea {
+      width: 100%;
+      height: 70px;
+      background: var(--cinema-surface);
+      border: 1px solid var(--cinema-card-stroke);
+      border-radius: 8px;
+      color: #fff;
+      padding: 8px;
+      font-size: 12px;
+      outline: none;
+      resize: none;
+      margin-top: 6px;
+    }
+    .btn-save-note {
+      width: 100%;
+      background: var(--primary);
+      border: none;
+      color: #fff;
+      padding: 8px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 6px;
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: absolute;
+      bottom: 74px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(34, 39, 59, 0.95);
+      color: #fff;
+      border: 1px solid var(--secondary);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      display: none;
+      z-index: 30;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.5);
+    }
+
+    /* Edit Profile Prompt Dialog */
+    .dialog-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 40;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .dialog-overlay.open { display: flex; }
+    .dialog-box {
+      background: var(--cinema-card);
+      border: 1px solid var(--cinema-card-stroke);
+      border-radius: 16px;
+      padding: 18px;
+      width: 100%;
+      max-width: 320px;
+    }
+    .dialog-box h3 { font-size: 15px; margin-bottom: 12px; }
+    .dialog-box input {
+      width: 100%;
+      height: 38px;
+      background: var(--cinema-surface);
+      border: 1px solid var(--cinema-card-stroke);
+      border-radius: 8px;
+      color: #fff;
+      padding: 0 10px;
+      font-size: 12px;
+      margin-bottom: 8px;
+      outline: none;
+    }
+    .dialog-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .dialog-actions button {
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .btn-cancel { background: transparent; border: none; color: var(--text-muted); }
+    .btn-submit { background: var(--primary); border: none; color: #fff; font-weight: 600; }
+  </style>
+</head>
+<body>
+
+  <!-- Top Banner for Vercel Deployment info -->
+  <div class="top-banner">
+    <div>
+      <span>Katalog Film Android App</span> • Web Showcase
+    </div>
+    <div class="badge">Vercel Ready ✓</div>
+  </div>
+
+  <!-- Android Phone Mockup Frame -->
+  <div class="phone-container">
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <span>09:41</span>
+      <span>●●● WiFi 100%</span>
+    </div>
+
+    <!-- App Bar -->
+    <div class="app-header">
+      <svg viewBox="0 0 24 24"><path d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z"/></svg>
+      <div class="app-header-text">
+        <h1>Katalog Film</h1>
+        <p>Mobile Programming • TI UNPAM</p>
+      </div>
+    </div>
+
+    <!-- Screen 1: Film List Fragment -->
+    <div id="screen-movies" class="screen-content">
+      <!-- Search Input -->
+      <div class="search-box">
+        <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+        <input type="text" id="input-search" placeholder="Cari judul film, genre...">
+      </div>
+
+      <!-- Filter Chips -->
+      <div class="chip-scroll">
+        <div class="chip active" data-genre="Semua">Semua Film</div>
+        <div class="chip" data-genre="Favorit">Favorit Saya ❤️</div>
+        <div class="chip" data-genre="Action">Action</div>
+        <div class="chip" data-genre="Sci-Fi">Sci-Fi</div>
+        <div class="chip" data-genre="Drama">Drama</div>
+        <div class="chip" data-genre="Animasi">Animasi</div>
+        <div class="chip" data-genre="Horor">Horor</div>
+        <div class="chip" data-genre="Komedi">Komedi</div>
+      </div>
+
+      <!-- List Status -->
+      <div class="list-info">
+        <span id="label-count">Menampilkan 8 film</span>
+        <span id="label-active-filter" style="color:var(--secondary)">Katalog Lengkap</span>
+      </div>
+
+      <!-- RecyclerView container -->
+      <div id="films-list"></div>
+    </div>
+
+    <!-- Screen 2: Profile Fragment -->
+    <div id="screen-profile" class="screen-content" style="display:none;">
+      <div class="profile-view">
+        <!-- Profile Card -->
+        <div class="profile-card">
+          <div class="profile-header">
+            <div class="avatar">
+              <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+            </div>
+            <div class="profile-info">
+              <h2 id="disp-name">Alief Aditiyo Nasokha</h2>
+              <div class="nim" id="disp-nim">NIM: 231011400929</div>
+              <div class="kelas" id="disp-class">Kelas: 06TPLE004</div>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="academic-info">
+            <h3>UNIVERSITAS PAMULANG</h3>
+            <p>Fakultas Ilmu Komputer • Teknik Informatika S-1</p>
+            <p style="font-weight:bold; color:#fff; margin-top:4px;">Mata Kuliah: Mobile Programming (3 SKS)</p>
+          </div>
+        </div>
+
+        <!-- Statistics -->
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="num" id="stat-films">8</div>
+            <div class="label">Koleksi Film</div>
+          </div>
+          <div class="stat-card fav">
+            <div class="num" id="stat-favs">4</div>
+            <div class="label">Film Favorit</div>
+          </div>
+          <div class="stat-card rev">
+            <div class="num" id="stat-revs">1</div>
+            <div class="label">Catatan Review</div>
+          </div>
+        </div>
+
+        <!-- Dosen Pengampu & Rubrik -->
+        <div class="rubric-card">
+          <h4>Dosen Pengampu Mata Kuliah:</h4>
+          1. Septa, S.Kom., M.Kom (NIDN 0413099601)<br>
+          2. Rinna Rachmatika, M.Kom. (NIDN 0417038903)<br>
+          3. Dr. Eng. Ahmad Musyafa, M.Kom. (NIDN 0425018609)<br>
+          <div class="divider" style="margin:8px 0;"></div>
+          <h4 style="color:var(--secondary)">Komponen Android yang Diimplementasikan:</h4>
+          ✓ RecyclerView dengan adapter kustom &amp; filter<br>
+          ✓ Fragment (Daftar Film &amp; Profil Pengguna)<br>
+          ✓ Intent untuk passing data ke DetailFilmActivity<br>
+          ✓ BottomNavigationView navigasi halaman<br>
+          ✓ LinearLayout &amp; ConstraintLayout responsif<br>
+          ✓ ImageView untuk poster film<br>
+          ✓ WebView untuk pemutar trailer YouTube<br>
+          ✓ VideoView untuk pemutar video trailer native<br>
+          ✓ Button, TextView, &amp; EditText untuk catatan review
+        </div>
+
+        <button class="btn-edit-profile" onclick="openProfileDialog()">Ubah Nama &amp; NIM Mahasiswa</button>
+      </div>
+    </div>
+
+    <!-- Detail Film Modal View (Intent to DetailFilmActivity simulation) -->
+    <div id="modal-detail" class="modal-overlay">
+      <div class="modal-bar">
+        <button class="btn-close-modal" onclick="closeModal()">
+          <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+        </button>
+        <div class="modal-title" id="m-appbar-title">Detail Film</div>
+      </div>
+      <div class="modal-body">
+        <div class="modal-hero">
+          <img id="m-poster" class="modal-poster" src="" alt="Poster">
+          <div class="modal-meta">
+            <h2 id="m-title">Title</h2>
+            <div class="rating" id="m-rating">⭐ 8.8 / 10</div>
+            <div style="font-size:12px; color:var(--secondary);" id="m-year-genre">2010 • Sci-Fi</div>
+            <div class="director" id="m-director">Sutradara: -</div>
+            <div class="director" id="m-duration">Durasi: -</div>
+            <button class="btn-fav" id="m-btn-fav" onclick="toggleDetailFav()" style="margin-top:6px; width:fit-content;">
+              ❤️ Tambah ke Favorit
+            </button>
+          </div>
+        </div>
+
+        <!-- Sinopsis -->
+        <div>
+          <h3 style="font-size:14px; margin-bottom:4px;">Sinopsis</h3>
+          <p id="m-synopsis" style="font-size:12px; color:var(--text-secondary); line-height:1.4;"></p>
+        </div>
+
+        <!-- Section 1: WebView YouTube Trailer -->
+        <div class="player-card">
+          <div class="header-tag">
+            <h3>Trailer YouTube</h3>
+            <span class="badge">WebView Android</span>
+          </div>
+          <iframe id="m-webview" class="player-frame" src="" allowfullscreen></iframe>
+        </div>
+
+        <!-- Section 2: VideoView Trailer Player -->
+        <div class="player-card">
+          <div class="header-tag">
+            <h3>Trailer Teaser Native</h3>
+            <span class="badge">VideoView Android</span>
+          </div>
+          <video id="m-videoview" class="player-frame" controls playsinline></video>
+        </div>
+
+        <!-- Section 3: EditText Review Pengguna -->
+        <div class="player-card review-box">
+          <div class="header-tag">
+            <h3>Catatan Review Pengguna</h3>
+            <span class="badge">EditText &amp; Button</span>
+          </div>
+          <textarea id="m-review-input" placeholder="Tulis catatan atau review pribadi film ini..."></textarea>
+          <button class="btn-save-note" onclick="saveReview()">Simpan Catatan Review</button>
+          <div id="m-saved-review" style="font-size:11px; color:var(--text-secondary); margin-top:6px; background:rgba(0,0,0,0.3); padding:6px; border-radius:6px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Profile Dialog -->
+    <div id="dialog-profile" class="dialog-overlay">
+      <div class="dialog-box">
+        <h3>Ubah Profil Mahasiswa</h3>
+        <input type="text" id="dlg-name" placeholder="Nama Mahasiswa">
+        <input type="text" id="dlg-nim" placeholder="NIM">
+        <input type="text" id="dlg-class" placeholder="Kelas (contoh: 06TPLE004)">
+        <div class="dialog-actions">
+          <button class="btn-cancel" onclick="closeProfileDialog()">Batal</button>
+          <button class="btn-submit" onclick="submitProfile()">Simpan</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Component -->
+    <div id="app-toast" class="toast"></div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+      <button class="nav-item active" id="tab-movies" onclick="switchTab('movies')">
+        <svg viewBox="0 0 24 24"><path d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z"/></svg>
+        <span>Daftar Film</span>
+      </button>
+      <button class="nav-item" id="tab-profile" onclick="switchTab('profile')">
+        <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        <span>Profil Pengguna</span>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // Film Dataset (matches FilmRepository.kt)
+    const films = [
+      {
+        id: 1,
+        title: "Inception",
+        year: "2010",
+        genre: "Sci-Fi",
+        rating: 8.8,
+        duration: "148 menit",
+        director: "Christopher Nolan",
+        synopsis: "Dom Cobb adalah seorang pencuri terampil, yang terbaik dalam seni ekstraksi berbahaya: mencuri rahasia berharga dari kedalaman alam bawah sadar selama keadaan mimpi, ketika pikiran berada pada kondisi paling rentan. Keterampilan langka Cobb telah menjadikannya pemain yang didambakan dalam spionase korporat, namun juga menjadikannya buronan internasional. Kini Cobb ditawari kesempatan penebusan dosa melalui misi penanaman ide (inception).",
+        posterUrl: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500&q=80",
+        youtubeTrailerUrl: "https://www.youtube.com/embed/YoHD9XEInc0",
+        videoTrailerUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        isFavorite: true,
+        userReview: "Salah satu film sci-fi terbaik sepanjang masa dengan plot twist yang luar biasa."
+      },
+      {
+        id: 2,
+        title: "Interstellar",
+        year: "2014",
+        genre: "Sci-Fi",
+        rating: 8.7,
+        duration: "169 menit",
+        director: "Christopher Nolan",
+        synopsis: "Ketika bumi di masa depan tidak lagi dapat dihuni akibat badai debu dan krisis pangan, sekelompok penjelajah menggunakan lubang cacing yang baru ditemukan untuk melampaui batas perjalanan ruang angkasa manusia dan menaklukkan jarak yang sangat jauh dalam perjalanan antar bintang demi menyelamatkan kelangsungan hidup umat manusia.",
+        posterUrl: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500&q=80",
+        youtubeTrailerUrl: "https://www.youtube.com/embed/zSWdZVtXT7E",
+        videoTrailerUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+        isFavorite: false,
+        userReview: ""
+      },
+      {
+        id: 3,
+        title: "The Dark Knight",
+        year: "2008",
+        genre: "Action",
+        rating: 9.0,
+        duration: "152 menit",
+        director: "Christopher Nolan",
+        synopsis: "Dengan bantuan Letnan Jim Gordon dan Jaksa Harvey Dent, Batman berhasil menjaga keamanan di Gotham City. Namun, ketika dalang kriminal psikopat yang dikenal sebagai Joker muncul dan mendatangkan malapetaka di Gotham, Batman harus menerima salah satu ujian psikologis dan fisik terbesar dari kemampuannya untuk melawan ketidakadilan.",
+        posterUrl: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=500&q=80",
+        youtubeTrailerUrl: "https://www.youtube.com/embed/EXeTwQWrcwY",
+        videoTrailerUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+        isFavorite: true,
+        userReview: ""
+      },
+      {
+        id: 4,
+        title: "Spider-Man: Across the Spider-Verse",
+        year: "2023",
+        genre: "Animasi",
+        rating: 8.7,
+        duration: "140 menit",
+        director: "Joaquim Dos Santos, Kemp Powers",
+        synopsis: "Miles Morales terlempar melintasi Multiverse, di mana ia bertemu dengan tim Spider-People yang ditugaskan untuk melindungi keberadaannya. Ketika para pahlawan berselisih tentang cara menangani ancaman baru, Miles mendapati dirinya diadu melawan Spider lainnya dan harus mendefinisikan kembali arti menjadi seorang pahlawan.",
+        posterUrl: "https://images.unsplash.com/photo-1635805737707-575885ab0820?w=500&q=80",
+        youtubeTrailerUrl: "https://www.youtube.com/embed/cqGjhVJWtEg",
+        videoTrailerUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
+        isFavorite: false,
+        userReview: ""
+      },
+      {
+        id: 5,
+        title: "Pengabdi Setan 2: Communion",
+        year: "2022",
+        genre: "Horor",
+        rating: 7.0,
+        duration: "119 menit",
+        director: "Joko Anwar",
+        synopsis: "Beberapa tahun setelah berhasil menyelamatkan diri dari kejadian mengerikan yang membuat mereka kehilangan ibu dan si bungsu Ian, Rini dan adik-adiknya tinggal di rumah susun demi keamanan. Namun, mereka segera menyadari bahaya yang jauh lebih mengerikan menanti di balik dinding rusun tersebut.",
+        posterUrl: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=500&q=80",
+        youtubeTrailerUrl: "https://www.youtube.com/embed/U3l0M4T9m38",
+        videoTrailerUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4",
+        isFavorite: false,
+        userReview: ""
+      },
+      {
+        id: 6,
+        title: "Agak Laen",
+        year: "2024",
+        genre: "Komedi",
+        rating: 7.8,
+        duration: "119 menit",
+        director: "Muhadkly Acho",
+        synopsis: "Empat sekawan pengelola wahana rumah hantu di pasar malam yang hampir bangkrut berusaha mencari cara untuk menarik pengunjung. Mereka merombak wahana menjadi sangat menyeramkan hingga seorang politisi meninggal karena jantungan di dalamnya.",
+        posterUrl: "https://images.unsplash.com/photo-1514306191717-452ec28c7814?w=500&q=80",
+        youtubeTrailerUrl: "https://www.youtube.com/embed/kYgW5-N_mXg",
+        videoTrailerUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackSeeTheWorld.mp4",
+        isFavorite: true,
+        userReview: ""
+      },
+      {
+        id: 7,
+        title: "Oppenheimer",
+        year: "2023",
+        genre: "Drama",
+        rating: 8.9,
+        duration: "180 menit",
+        director: "Christopher Nolan",
+        synopsis: "Kisah fisikawan teoretis Amerika J. Robert Oppenheimer, yang memimpin Proyek Manhattan di Laboratorium Los Alamos selama Perang Dunia II, dan perannya dalam pengembangan bom atom pertama di dunia.",
+        posterUrl: "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=500&q=80",
+        youtubeTrailerUrl: "https://www.youtube.com/embed/uYPbbksJxIg",
+        videoTrailerUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        isFavorite: false,
+        userReview: ""
+      },
+      {
+        id: 8,
+        title: "Coco",
+        year: "2017",
+        genre: "Animasi",
+        rating: 8.4,
+        duration: "105 menit",
+        director: "Lee Unkrich, Adrian Molina",
+        synopsis: "Miguel, anak berusia 12 tahun yang bercita-cita menjadi musisi handal, tiba-tiba terlempar ke Negeri Orang Mati. Di sana ia memulai perjalanan luar biasa bersama penipu ramah bernama Héctor untuk mengungkap rahasia keluarganya.",
+        posterUrl: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=500&q=80",
+        youtubeTrailerUrl: "https://www.youtube.com/embed/Rvr68u635JE",
+        videoTrailerUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+        isFavorite: true,
+        userReview: ""
+      }
+    ];
+
+    let currentGenre = "Semua";
+    let searchQuery = "";
+    let activeDetailFilm = null;
+
+    // Profile info
+    let profile = {
+      name: "Alief Aditiyo Nasokha",
+      nim: "231011400929",
+      class: "06TPLE004"
+    };
+
+    function showToast(msg) {
+      const toast = document.getElementById("app-toast");
+      toast.innerText = msg;
+      toast.style.display = "block";
+      setTimeout(() => { toast.style.display = "none"; }, 2500);
+    }
+
+    function renderFilms() {
+      const container = document.getElementById("films-list");
+      const filtered = films.filter(f => {
+        const matchesQuery = !searchQuery || 
+          f.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          f.genre.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          f.director.toLowerCase().includes(searchQuery.toLowerCase());
+
+        const matchesGenre = currentGenre === "Semua" ? true :
+          (currentGenre === "Favorit" ? f.isFavorite : f.genre.toLowerCase().includes(currentGenre.toLowerCase()));
+
+        return matchesQuery && matchesGenre;
+      });
+
+      document.getElementById("label-count").innerText = `Menampilkan ${filtered.length} film`;
+      document.getElementById("label-active-filter").innerText = currentGenre === "Semua" ? "Katalog Lengkap" : currentGenre;
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center; padding:40px 20px; color:var(--text-muted);">
+            <div style="font-size:32px; margin-bottom:8px;">🎬</div>
+            <div style="font-weight:bold; color:#fff;">Tidak Ada Film Ditemukan</div>
+            <div style="font-size:12px; margin-top:4px;">Coba ubah kata kunci pencarian atau kategori filter.</div>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(f => `
+        <div class="film-card" onclick="openDetail(${f.id})">
+          <img class="film-poster" src="${f.posterUrl}" alt="${f.title}" loading="lazy">
+          <div class="film-details">
+            <div>
+              <div class="film-title">${f.title}</div>
+              <div class="film-meta">
+                <span class="year">${f.year}</span>
+                <span>•</span>
+                <span>${f.duration}</span>
+                <span class="rating-tag">⭐ ${f.rating}</span>
+              </div>
+              <div class="film-genre">${f.genre}</div>
+              <div class="film-synopsis">${f.synopsis}</div>
+            </div>
+            <div class="card-actions" onclick="event.stopPropagation()">
+              <button class="btn-fav ${f.isFavorite ? 'active' : ''}" onclick="toggleFav(${f.id})">
+                ${f.isFavorite ? '❤️ Favorit' : '🤍 Tambah Favorit'}
+              </button>
+              <button class="btn-detail" onclick="openDetail(${f.id})">Detail</button>
+            </div>
+          </div>
+        </div>
+      `).join("");
+
+      updateStats();
+    }
+
+    function toggleFav(id) {
+      const film = films.find(f => f.id === id);
+      if (!film) return;
+      film.isFavorite = !film.isFavorite;
+      showToast(film.isFavorite ? `${film.title} berhasil ditambahkan ke Favorit!` : `${film.title} dihapus dari Favorit.`);
+      renderFilms();
+    }
+
+    function openDetail(id) {
+      const film = films.find(f => f.id === id);
+      if (!film) return;
+      activeDetailFilm = film;
+
+      document.getElementById("m-appbar-title").innerText = film.title;
+      document.getElementById("m-title").innerText = film.title;
+      document.getElementById("m-poster").src = film.posterUrl;
+      document.getElementById("m-rating").innerText = `⭐ ${film.rating} / 10`;
+      document.getElementById("m-year-genre").innerText = `${film.year} • ${film.genre}`;
+      document.getElementById("m-director").innerText = `Sutradara: ${film.director}`;
+      document.getElementById("m-duration").innerText = `Durasi: ${film.duration}`;
+      document.getElementById("m-synopsis").innerText = film.synopsis;
+
+      const btnFav = document.getElementById("m-btn-fav");
+      btnFav.className = `btn-fav ${film.isFavorite ? 'active' : ''}`;
+      btnFav.innerText = film.isFavorite ? "❤️ Tersimpan di Favorit" : "🤍 Tambah ke Favorit";
+
+      // WebView YouTube
+      document.getElementById("m-webview").src = `${film.youtubeTrailerUrl}?rel=0`;
+
+      // VideoView MP4
+      const videoEl = document.getElementById("m-videoview");
+      videoEl.src = film.videoTrailerUrl;
+
+      // User review
+      document.getElementById("m-review-input").value = film.userReview || "";
+      document.getElementById("m-saved-review").innerText = film.userReview ? 
+        `Review Tersimpan: "${film.userReview}"` : "Belum ada review tersimpan.";
+
+      document.getElementById("modal-detail").classList.add("open");
+    }
+
+    function closeModal() {
+      document.getElementById("modal-detail").classList.remove("open");
+      document.getElementById("m-webview").src = "";
+      const videoEl = document.getElementById("m-videoview");
+      videoEl.pause();
+      videoEl.src = "";
+      activeDetailFilm = null;
+    }
+
+    function toggleDetailFav() {
+      if (!activeDetailFilm) return;
+      toggleFav(activeDetailFilm.id);
+      const btnFav = document.getElementById("m-btn-fav");
+      btnFav.className = `btn-fav ${activeDetailFilm.isFavorite ? 'active' : ''}`;
+      btnFav.innerText = activeDetailFilm.isFavorite ? "❤️ Tersimpan di Favorit" : "🤍 Tambah ke Favorit";
+    }
+
+    function saveReview() {
+      if (!activeDetailFilm) return;
+      const text = document.getElementById("m-review-input").value.trim();
+      if (!text) {
+        showToast("Tulis review terlebih dahulu!");
+        return;
+      }
+      activeDetailFilm.userReview = text;
+      document.getElementById("m-saved-review").innerText = `Review Tersimpan: "${text}"`;
+      showToast("Catatan review berhasil disimpan!");
+      updateStats();
+    }
+
+    function switchTab(tab) {
+      if (tab === 'movies') {
+        document.getElementById("screen-movies").style.display = "block";
+        document.getElementById("screen-profile").style.display = "none";
+        document.getElementById("tab-movies").classList.add("active");
+        document.getElementById("tab-profile").classList.remove("active");
+      } else {
+        document.getElementById("screen-movies").style.display = "none";
+        document.getElementById("screen-profile").style.display = "block";
+        document.getElementById("tab-movies").classList.remove("active");
+        document.getElementById("tab-profile").classList.add("active");
+      }
+    }
+
+    function updateStats() {
+      document.getElementById("stat-films").innerText = films.length;
+      document.getElementById("stat-favs").innerText = films.filter(f => f.isFavorite).length;
+      document.getElementById("stat-revs").innerText = films.filter(f => f.userReview && f.userReview.trim()).length;
+    }
+
+    // Profile Dialog
+    function openProfileDialog() {
+      document.getElementById("dlg-name").value = profile.name;
+      document.getElementById("dlg-nim").value = profile.nim;
+      document.getElementById("dlg-class").value = profile.class;
+      document.getElementById("dialog-profile").classList.add("open");
+    }
+
+    function closeProfileDialog() {
+      document.getElementById("dialog-profile").classList.remove("open");
+    }
+
+    function submitProfile() {
+      const name = document.getElementById("dlg-name").value.trim();
+      const nim = document.getElementById("dlg-nim").value.trim();
+      const cls = document.getElementById("dlg-class").value.trim();
+
+      if (!name || !nim) {
+        alert("Nama dan NIM tidak boleh kosong!");
+        return;
+      }
+
+      profile.name = name;
+      profile.nim = nim;
+      profile.class = cls || "06TPLE004";
+
+      document.getElementById("disp-name").innerText = profile.name;
+      document.getElementById("disp-nim").innerText = `NIM: ${profile.nim}`;
+      document.getElementById("disp-class").innerText = `Kelas: ${profile.class}`;
+
+      closeProfileDialog();
+      showToast("Profil mahasiswa berhasil diperbarui!");
+    }
+
+    // Event listeners
+    document.getElementById("input-search").addEventListener("input", (e) => {
+      searchQuery = e.target.value.trim();
+      renderFilms();
+    });
+
+    document.querySelectorAll(".chip").forEach(chip => {
+      chip.addEventListener("click", () => {
+        document.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
+        chip.classList.add("active");
+        currentGenre = chip.getAttribute("data-genre");
+        renderFilms();
+      });
+    });
+
+    // Initialize
+    renderFilms();
+  </script>
+</body>
+</html>
