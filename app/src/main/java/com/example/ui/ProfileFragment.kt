@@ -52,13 +52,13 @@ class ProfileFragment : Fragment() {
     }
 
     private fun loadProfileData() {
-        val savedName = prefs.getString("KEY_NAME", "Alief Aditiyo Nasokha") ?: "Alief Aditiyo Nasokha"
-        val savedNim = prefs.getString("KEY_NIM", "231011400929") ?: "231011400929"
+        val savedName = prefs.getString("KEY_NAME", "Dzikri Syahdan Wahyudi") ?: "Dzikri Syahdan Wahyudi"
+        val savedNim = prefs.getString("KEY_NIM", "231011403402") ?: "231011403402"
         val savedClass = prefs.getString("KEY_CLASS", "06TPLE004") ?: "06TPLE004"
 
-        // Ensure if previous default "Salvanando" was stored, migrate it to the user's updated name
-        val finalName = if (savedName == "Salvanando") "Alief Aditiyo Nasokha" else savedName
-        val finalNim = if (savedNim == "211011400892") "231011400929" else savedNim
+        // Ensure if previous default name or NIM was stored, migrate it to the updated student identity
+        val finalName = if (savedName == "Salvanando" || savedName == "Alief Aditiyo Nasokha") "Dzikri Syahdan Wahyudi" else savedName
+        val finalNim = if (savedNim == "211011400892" || savedNim == "231011400929") "231011403402" else savedNim
         val finalClass = if (savedClass == "06TPLP001") "06TPLE004" else savedClass
 
         binding.tvProfileName.text = finalName

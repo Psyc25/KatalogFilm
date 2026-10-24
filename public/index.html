@@ -3,23 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Katalog Film - UTS Mobile Programming UNPAM</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23E50914'><path d='M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z'/></svg>">
+  <title>Katalog Film • Dzikri Syahdan Wahyudi</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236366F1'><path d='M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z'/></svg>">
   <style>
     :root {
-      --primary: #E50914;
-      --secondary: #FFC107;
-      --cinema-dark: #12141C;
-      --cinema-card: #1C2030;
-      --cinema-card-stroke: #2C324A;
-      --cinema-surface: #22273B;
-      --text-primary: #FFFFFF;
-      --text-secondary: #CBD5E1;
-      --text-muted: #8A96A8;
-      --favorite-red: #FF3B5C;
-      --rating-gold: #FFB800;
-      --unpam-blue: #1565C0;
-      --unpam-yellow: #FBC02D;
+      --primary: #6366F1;
+      --primary-variant: #4F46E5;
+      --secondary: #06B6D4;
+      --accent-violet: #8B5CF6;
+      --accent-pink: #EC4899;
+      --cinema-dark: #0B0F19;
+      --cinema-card: #131B2E;
+      --cinema-card-stroke: #24304F;
+      --cinema-surface: #182238;
+      --cinema-surface-light: #222F4B;
+      --text-primary: #F8FAFC;
+      --text-secondary: #94A3B8;
+      --text-muted: #64748B;
+      --favorite-red: #F43F5E;
+      --rating-gold: #FBBF24;
+      --unpam-blue: #1D4ED8;
     }
 
     * {
@@ -30,7 +33,7 @@
     }
 
     body {
-      background-color: #0b0c10;
+      background: radial-gradient(circle at 50% 10%, #1e1b4b 0%, #0b0f19 70%);
       color: var(--text-primary);
       min-height: 100vh;
       display: flex;
@@ -42,40 +45,42 @@
     /* Top Notice Banner */
     .top-banner {
       width: 100%;
-      max-width: 480px;
-      background: linear-gradient(90deg, #1565C0, #0D47A1);
+      max-width: 440px;
+      background: linear-gradient(135deg, #4f46e5, #06b6d4);
       padding: 10px 16px;
-      border-radius: 12px;
+      border-radius: 14px;
       margin-bottom: 14px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       font-size: 13px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      box-shadow: 0 8px 20px rgba(99, 102, 241, 0.25);
     }
-    .top-banner span { font-weight: 600; }
+    .top-banner span { font-weight: 700; color: #fff; }
     .top-banner .badge {
-      background: var(--unpam-yellow);
-      color: #000;
-      font-weight: bold;
-      padding: 2px 8px;
-      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.4);
+      color: #fff;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 12px;
       font-size: 11px;
+      backdrop-filter: blur(4px);
     }
 
     /* Phone Mockup Frame */
     .phone-container {
       width: 100%;
       max-width: 440px;
-      height: 860px;
+      height: 870px;
       max-height: 92vh;
       background-color: var(--cinema-dark);
-      border-radius: 36px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.7), 0 0 0 8px #1f2333;
+      border-radius: 38px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 0 8px #1e293b;
       display: flex;
       flex-direction: column;
       overflow: hidden;
       position: relative;
+      border: 1px solid rgba(255,255,255,0.08);
     }
 
     /* Status Bar */
@@ -99,25 +104,74 @@
       gap: 12px;
       border-bottom: 1px solid var(--cinema-card-stroke);
     }
+    .app-header .icon-container {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(6,182,212,0.2));
+      border: 1px solid var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
     .app-header svg {
-      width: 28px;
-      height: 28px;
-      fill: var(--primary);
+      width: 22px;
+      height: 22px;
+      fill: var(--secondary);
     }
     .app-header-text h1 {
       font-size: 18px;
-      font-weight: 700;
+      font-weight: 800;
+      letter-spacing: 0.3px;
     }
     .app-header-text p {
       font-size: 11px;
-      color: var(--text-muted);
+      color: var(--secondary);
+      font-weight: 600;
     }
 
     /* Main Content Area */
     .screen-content {
       flex: 1;
       overflow-y: auto;
-      padding-bottom: 70px;
+      padding-bottom: 74px;
+    }
+
+    /* Spotlight Banner */
+    .spotlight-card {
+      margin: 10px 14px 6px;
+      padding: 14px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #2e1065, #1e1b4b 60%, #0f172a);
+      border: 1.5px solid var(--primary);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s;
+    }
+    .spotlight-card:hover {
+      transform: scale(0.99);
+    }
+    .spotlight-badge {
+      display: inline-block;
+      background: rgba(6, 182, 212, 0.2);
+      color: var(--secondary);
+      border: 1px solid rgba(6, 182, 212, 0.4);
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 10px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .spotlight-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: #fff;
+    }
+    .spotlight-subtitle {
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin-top: 3px;
     }
 
     /* Bottom Navigation */
@@ -126,7 +180,7 @@
       bottom: 0;
       left: 0;
       right: 0;
-      height: 64px;
+      height: 66px;
       background-color: var(--cinema-surface);
       border-top: 1px solid var(--cinema-card-stroke);
       display: flex;
@@ -149,6 +203,7 @@
     }
     .nav-item.active {
       color: var(--primary);
+      font-weight: 700;
     }
     .nav-item svg {
       width: 22px;
@@ -158,14 +213,14 @@
 
     /* Search Bar */
     .search-box {
-      margin: 12px 16px 8px;
+      margin: 12px 14px 8px;
       background-color: var(--cinema-surface);
-      border: 1px solid var(--cinema-card-stroke);
-      border-radius: 14px;
+      border: 1.5px solid var(--cinema-card-stroke);
+      border-radius: 24px;
       display: flex;
       align-items: center;
-      padding: 0 12px;
-      height: 44px;
+      padding: 0 14px;
+      height: 46px;
     }
     .search-box svg {
       width: 18px;
@@ -189,7 +244,7 @@
     .chip-scroll {
       display: flex;
       gap: 8px;
-      padding: 6px 16px;
+      padding: 6px 14px;
       overflow-x: auto;
       scrollbar-width: none;
     }
@@ -197,7 +252,7 @@
     .chip {
       background-color: var(--cinema-surface);
       color: var(--text-secondary);
-      padding: 6px 12px;
+      padding: 7px 14px;
       border-radius: 20px;
       font-size: 12px;
       white-space: nowrap;
@@ -209,7 +264,8 @@
       background-color: var(--primary);
       color: #fff;
       border-color: var(--primary);
-      font-weight: 600;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
     }
 
     /* Section Info */
@@ -222,26 +278,26 @@
       color: var(--text-muted);
     }
 
-    /* Film Cards (RecyclerView style) */
+    /* Film Cards */
     .film-card {
       background-color: var(--cinema-card);
-      border: 1px solid var(--cinema-card-stroke);
-      border-radius: 16px;
+      border: 1.5px solid var(--cinema-card-stroke);
+      border-radius: 18px;
       margin: 0 14px 12px;
       padding: 12px;
       display: flex;
-      gap: 12px;
+      gap: 14px;
       position: relative;
       cursor: pointer;
       transition: transform 0.15s, border-color 0.15s;
     }
     .film-card:hover {
-      border-color: #3f4769;
+      border-color: var(--primary);
     }
     .film-poster {
-      width: 90px;
-      height: 130px;
-      border-radius: 10px;
+      width: 96px;
+      height: 142px;
+      border-radius: 14px;
       object-fit: cover;
       background-color: var(--cinema-surface);
       flex-shrink: 0;
@@ -266,31 +322,34 @@
       color: var(--text-muted);
       margin-top: 4px;
     }
-    .film-meta .year { color: var(--secondary); font-weight: 600; }
+    .film-meta .year { color: var(--secondary); font-weight: 700; }
     .film-meta .rating-tag {
       display: inline-flex;
       align-items: center;
       gap: 3px;
-      background: rgba(0,0,0,0.3);
-      padding: 2px 6px;
-      border-radius: 6px;
+      background: rgba(0,0,0,0.4);
+      border: 1px solid rgba(251, 191, 36, 0.3);
+      padding: 2px 7px;
+      border-radius: 8px;
       color: var(--rating-gold);
       font-weight: bold;
       font-size: 11px;
     }
     .film-genre {
       display: inline-block;
-      background: rgba(255,255,255,0.06);
-      padding: 2px 6px;
-      border-radius: 6px;
+      background: rgba(6, 182, 212, 0.12);
+      border: 1px solid rgba(6, 182, 212, 0.25);
+      padding: 2px 8px;
+      border-radius: 8px;
       font-size: 10px;
-      color: var(--text-secondary);
+      color: var(--secondary);
+      font-weight: 600;
       margin-top: 4px;
       width: fit-content;
     }
     .film-synopsis {
       font-size: 11px;
-      color: var(--text-muted);
+      color: var(--text-secondary);
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
@@ -300,48 +359,71 @@
 
     .card-actions {
       display: flex;
-      gap: 6px;
+      gap: 8px;
       margin-top: 8px;
     }
     .btn-fav {
       flex: 1;
-      background-color: var(--cinema-surface);
+      background-color: var(--cinema-surface-light);
       border: 1px solid var(--cinema-card-stroke);
       color: var(--text-secondary);
-      padding: 6px 8px;
-      border-radius: 8px;
+      padding: 7px 10px;
+      border-radius: 20px;
       font-size: 11px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 4px;
+      font-weight: 600;
     }
     .btn-fav.active {
       color: var(--favorite-red);
-      border-color: rgba(255,59,92,0.4);
+      border-color: rgba(244, 63, 94, 0.4);
+      background: rgba(244, 63, 94, 0.1);
     }
     .btn-detail {
       background-color: var(--primary);
       border: none;
       color: #fff;
-      padding: 6px 12px;
-      border-radius: 8px;
+      padding: 7px 16px;
+      border-radius: 20px;
       font-size: 11px;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
     }
 
-    /* Profile View */
+    /* Profile View: Digital Student ID Pass */
     .profile-view {
       padding: 16px;
     }
-    .profile-card {
-      background: linear-gradient(135deg, #1C2030, #151824);
-      border: 1.5px solid var(--unpam-blue);
-      border-radius: 18px;
-      padding: 16px;
+    .id-pass-card {
+      background: var(--cinema-card);
+      border: 1.5px solid var(--primary);
+      border-radius: 22px;
+      overflow: hidden;
       margin-bottom: 14px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    }
+    .id-pass-strip {
+      background: linear-gradient(135deg, #312e81, #1e1b4b);
+      padding: 10px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .id-pass-strip h3 { font-size: 12px; color: #fff; letter-spacing: 0.5px; }
+    .id-pass-strip .badge {
+      background: rgba(6,182,212,0.2);
+      color: var(--secondary);
+      padding: 2px 8px;
+      border-radius: 8px;
+      font-size: 10px;
+      font-weight: bold;
+    }
+    .id-pass-body {
+      padding: 16px;
     }
     .profile-header {
       display: flex;
@@ -349,8 +431,8 @@
       gap: 14px;
     }
     .avatar {
-      width: 64px;
-      height: 64px;
+      width: 68px;
+      height: 68px;
       border-radius: 50%;
       background: var(--cinema-surface);
       display: flex;
@@ -358,13 +440,12 @@
       justify-content: center;
       border: 2px solid var(--secondary);
     }
-    .avatar svg { width: 36px; height: 36px; fill: var(--secondary); }
-    .profile-info h2 { font-size: 17px; font-weight: 700; color: #fff; }
-    .profile-info .nim { font-size: 13px; color: var(--secondary); font-weight: 600; margin-top: 2px; }
+    .avatar svg { width: 38px; height: 38px; fill: var(--secondary); }
+    .profile-info h2 { font-size: 17px; font-weight: 800; color: #fff; }
+    .profile-info .nim { font-size: 13px; color: var(--secondary); font-weight: 700; margin-top: 2px; }
     .profile-info .kelas { font-size: 12px; color: var(--text-muted); }
 
     .divider { height: 1px; background: var(--cinema-card-stroke); margin: 12px 0; }
-    .academic-info h3 { font-size: 13px; color: var(--unpam-yellow); font-weight: 700; }
     .academic-info p { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
 
     .stats-row {
@@ -376,19 +457,19 @@
     .stat-card {
       background: var(--cinema-card);
       border: 1px solid var(--cinema-card-stroke);
-      border-radius: 12px;
-      padding: 10px;
+      border-radius: 16px;
+      padding: 12px;
       text-align: center;
     }
-    .stat-card .num { font-size: 18px; font-weight: 700; color: #fff; }
+    .stat-card .num { font-size: 20px; font-weight: 800; color: #fff; }
     .stat-card.fav .num { color: var(--favorite-red); }
-    .stat-card.rev .num { color: var(--secondary); }
+    .stat-card.rev .num { color: var(--rating-gold); }
     .stat-card .label { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
 
     .rubric-card {
       background: var(--cinema-card);
       border: 1px solid var(--cinema-card-stroke);
-      border-radius: 14px;
+      border-radius: 16px;
       padding: 14px;
       font-size: 11px;
       color: var(--text-secondary);
@@ -399,21 +480,21 @@
 
     .btn-edit-profile {
       width: 100%;
-      background: var(--cinema-surface);
+      background: var(--cinema-surface-light);
       border: 1px solid var(--cinema-card-stroke);
       color: #fff;
-      padding: 10px;
-      border-radius: 10px;
+      padding: 11px;
+      border-radius: 24px;
       font-size: 12px;
       cursor: pointer;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     /* Modal Detail Film */
     .modal-overlay {
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.85);
+      background: rgba(11, 15, 25, 0.95);
       z-index: 20;
       display: none;
       flex-direction: column;
@@ -421,7 +502,7 @@
     }
     .modal-overlay.open { display: flex; }
     .modal-bar {
-      height: 52px;
+      height: 54px;
       background: var(--cinema-surface);
       display: flex;
       align-items: center;
@@ -430,6 +511,7 @@
       position: sticky;
       top: 0;
       z-index: 5;
+      border-bottom: 1px solid var(--cinema-card-stroke);
     }
     .btn-close-modal {
       background: none;
@@ -452,10 +534,11 @@
       gap: 14px;
     }
     .modal-poster {
-      width: 110px;
-      height: 160px;
-      border-radius: 12px;
+      width: 115px;
+      height: 168px;
+      border-radius: 14px;
       object-fit: cover;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.6);
     }
     .modal-meta {
       flex: 1;
@@ -463,15 +546,15 @@
       flex-direction: column;
       gap: 4px;
     }
-    .modal-meta h2 { font-size: 18px; color: #fff; line-height: 1.2; }
+    .modal-meta h2 { font-size: 18px; color: #fff; font-weight: 800; line-height: 1.2; }
     .modal-meta .rating { color: var(--rating-gold); font-size: 13px; font-weight: bold; }
     .modal-meta .director { font-size: 12px; color: var(--text-muted); }
 
     .player-card {
       background: var(--cinema-card);
-      border: 1px solid var(--cinema-card-stroke);
-      border-radius: 12px;
-      padding: 12px;
+      border: 1.5px solid var(--cinema-card-stroke);
+      border-radius: 16px;
+      padding: 14px;
     }
     .player-card .header-tag {
       display: flex;
@@ -479,12 +562,12 @@
       align-items: center;
       margin-bottom: 8px;
     }
-    .player-card h3 { font-size: 13px; color: #fff; }
-    .player-card .badge { background: rgba(255,255,255,0.08); color: var(--secondary); font-size: 10px; padding: 2px 6px; border-radius: 4px; }
+    .player-card h3 { font-size: 13px; color: #fff; font-weight: 700; }
+    .player-card .badge { background: rgba(6,182,212,0.15); color: var(--secondary); font-size: 10px; padding: 2px 8px; border-radius: 6px; font-weight: bold; }
     .player-frame {
       width: 100%;
-      height: 190px;
-      border-radius: 8px;
+      height: 195px;
+      border-radius: 10px;
       background: #000;
       overflow: hidden;
       border: none;
@@ -492,12 +575,12 @@
 
     .review-box textarea {
       width: 100%;
-      height: 70px;
+      height: 75px;
       background: var(--cinema-surface);
       border: 1px solid var(--cinema-card-stroke);
-      border-radius: 8px;
+      border-radius: 12px;
       color: #fff;
-      padding: 8px;
+      padding: 10px;
       font-size: 12px;
       outline: none;
       resize: none;
@@ -508,36 +591,37 @@
       background: var(--primary);
       border: none;
       color: #fff;
-      padding: 8px;
-      border-radius: 8px;
+      padding: 10px;
+      border-radius: 20px;
       font-size: 12px;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
-      margin-top: 6px;
+      margin-top: 8px;
     }
 
     /* Toast Notification */
     .toast {
       position: absolute;
-      bottom: 74px;
+      bottom: 76px;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(34, 39, 59, 0.95);
+      background: rgba(24, 34, 56, 0.95);
       color: #fff;
       border: 1px solid var(--secondary);
-      padding: 8px 16px;
+      padding: 8px 18px;
       border-radius: 20px;
       font-size: 12px;
       display: none;
       z-index: 30;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.5);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.6);
+      font-weight: 600;
     }
 
     /* Edit Profile Prompt Dialog */
     .dialog-overlay {
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.7);
+      background: rgba(0,0,0,0.75);
       z-index: 40;
       display: none;
       align-items: center;
@@ -547,21 +631,21 @@
     .dialog-overlay.open { display: flex; }
     .dialog-box {
       background: var(--cinema-card);
-      border: 1px solid var(--cinema-card-stroke);
-      border-radius: 16px;
-      padding: 18px;
+      border: 1.5px solid var(--primary);
+      border-radius: 20px;
+      padding: 20px;
       width: 100%;
       max-width: 320px;
     }
-    .dialog-box h3 { font-size: 15px; margin-bottom: 12px; }
+    .dialog-box h3 { font-size: 15px; margin-bottom: 12px; font-weight: 700; }
     .dialog-box input {
       width: 100%;
-      height: 38px;
+      height: 40px;
       background: var(--cinema-surface);
       border: 1px solid var(--cinema-card-stroke);
-      border-radius: 8px;
+      border-radius: 10px;
       color: #fff;
-      padding: 0 10px;
+      padding: 0 12px;
       font-size: 12px;
       margin-bottom: 8px;
       outline: none;
@@ -573,13 +657,13 @@
       margin-top: 10px;
     }
     .dialog-actions button {
-      padding: 6px 12px;
-      border-radius: 6px;
+      padding: 7px 14px;
+      border-radius: 14px;
       font-size: 12px;
       cursor: pointer;
     }
     .btn-cancel { background: transparent; border: none; color: var(--text-muted); }
-    .btn-submit { background: var(--primary); border: none; color: #fff; font-weight: 600; }
+    .btn-submit { background: var(--primary); border: none; color: #fff; font-weight: 700; }
   </style>
 </head>
 <body>
@@ -587,7 +671,7 @@
   <!-- Top Banner for Vercel Deployment info -->
   <div class="top-banner">
     <div>
-      <span>Katalog Film Android App</span> • Web Showcase
+      <span>CineSphere App</span> • Dzikri Syahdan Wahyudi
     </div>
     <div class="badge">Vercel Ready ✓</div>
   </div>
@@ -597,15 +681,20 @@
     <!-- Status Bar -->
     <div class="status-bar">
       <span>09:41</span>
-      <span>●●● WiFi 100%</span>
+      <span>●●● 5G 100%</span>
     </div>
 
-    <!-- App Bar -->
+    <!-- Modern App Bar -->
     <div class="app-header">
-      <svg viewBox="0 0 24 24"><path d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z"/></svg>
-      <div class="app-header-text">
+      <div class="icon-container">
+        <svg viewBox="0 0 24 24"><path d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z"/></svg>
+      </div>
+      <div class="app-header-text" style="flex:1;">
         <h1>Katalog Film</h1>
-        <p>Mobile Programming • TI UNPAM</p>
+        <p>CineSphere • Dzikri Syahdan Wahyudi</p>
+      </div>
+      <div style="background:var(--cinema-surface-light); border:1px solid var(--cinema-card-stroke); padding:3px 8px; border-radius:8px; font-size:10px; color:var(--rating-gold); font-weight:bold;">
+        06TPLE004
       </div>
     </div>
 
@@ -614,7 +703,7 @@
       <!-- Search Input -->
       <div class="search-box">
         <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-        <input type="text" id="input-search" placeholder="Cari judul film, genre...">
+        <input type="text" id="input-search" placeholder="Cari judul film, genre, sutradara...">
       </div>
 
       <!-- Filter Chips -->
@@ -629,10 +718,17 @@
         <div class="chip" data-genre="Komedi">Komedi</div>
       </div>
 
+      <!-- Spotlight Feature Card -->
+      <div id="banner-spotlight" class="spotlight-card" onclick="openDetail(1)">
+        <div class="spotlight-badge">★ PILIHAN UTAMA</div>
+        <div class="spotlight-title">Inception • Christopher Nolan</div>
+        <div class="spotlight-subtitle">Tonton trailer interaktif &amp; tulis catatan review film.</div>
+      </div>
+
       <!-- List Status -->
       <div class="list-info">
         <span id="label-count">Menampilkan 8 film</span>
-        <span id="label-active-filter" style="color:var(--secondary)">Katalog Lengkap</span>
+        <span id="label-active-filter" style="color:var(--secondary); font-weight:600;">Katalog Lengkap</span>
       </div>
 
       <!-- RecyclerView container -->
@@ -642,23 +738,28 @@
     <!-- Screen 2: Profile Fragment -->
     <div id="screen-profile" class="screen-content" style="display:none;">
       <div class="profile-view">
-        <!-- Profile Card -->
-        <div class="profile-card">
-          <div class="profile-header">
-            <div class="avatar">
-              <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-            </div>
-            <div class="profile-info">
-              <h2 id="disp-name">Alief Aditiyo Nasokha</h2>
-              <div class="nim" id="disp-nim">NIM: 231011400929</div>
-              <div class="kelas" id="disp-class">Kelas: 06TPLE004</div>
-            </div>
-          </div>
-          <div class="divider"></div>
-          <div class="academic-info">
+        <!-- Digital Student ID Card -->
+        <div class="id-pass-card">
+          <div class="id-pass-strip">
             <h3>UNIVERSITAS PAMULANG</h3>
-            <p>Fakultas Ilmu Komputer • Teknik Informatika S-1</p>
-            <p style="font-weight:bold; color:#fff; margin-top:4px;">Mata Kuliah: Mobile Programming (3 SKS)</p>
+            <span class="badge">ACTIVE</span>
+          </div>
+          <div class="id-pass-body">
+            <div class="profile-header">
+              <div class="avatar">
+                <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+              </div>
+              <div class="profile-info">
+                <h2 id="disp-name">Dzikri Syahdan Wahyudi</h2>
+                <div class="nim" id="disp-nim">NIM: 231011403402</div>
+                <div class="kelas" id="disp-class">Kelas: 06TPLE004</div>
+              </div>
+            </div>
+            <div class="divider"></div>
+            <div class="academic-info">
+              <p>Fakultas Ilmu Komputer • Teknik Informatika S-1</p>
+              <p style="font-weight:bold; color:#fff; margin-top:4px;">Mata Kuliah: Mobile Programming (3 SKS)</p>
+            </div>
           </div>
         </div>
 
@@ -715,7 +816,7 @@
           <div class="modal-meta">
             <h2 id="m-title">Title</h2>
             <div class="rating" id="m-rating">⭐ 8.8 / 10</div>
-            <div style="font-size:12px; color:var(--secondary);" id="m-year-genre">2010 • Sci-Fi</div>
+            <div style="font-size:12px; color:var(--secondary); font-weight:600;" id="m-year-genre">2010 • Sci-Fi</div>
             <div class="director" id="m-director">Sutradara: -</div>
             <div class="director" id="m-duration">Durasi: -</div>
             <button class="btn-fav" id="m-btn-fav" onclick="toggleDetailFav()" style="margin-top:6px; width:fit-content;">
@@ -726,8 +827,8 @@
 
         <!-- Sinopsis -->
         <div>
-          <h3 style="font-size:14px; margin-bottom:4px;">Sinopsis</h3>
-          <p id="m-synopsis" style="font-size:12px; color:var(--text-secondary); line-height:1.4;"></p>
+          <h3 style="font-size:14px; margin-bottom:4px; font-weight:700;">Sinopsis</h3>
+          <p id="m-synopsis" style="font-size:12px; color:var(--text-secondary); line-height:1.45;"></p>
         </div>
 
         <!-- Section 1: WebView YouTube Trailer -->
@@ -756,7 +857,7 @@
           </div>
           <textarea id="m-review-input" placeholder="Tulis catatan atau review pribadi film ini..."></textarea>
           <button class="btn-save-note" onclick="saveReview()">Simpan Catatan Review</button>
-          <div id="m-saved-review" style="font-size:11px; color:var(--text-secondary); margin-top:6px; background:rgba(0,0,0,0.3); padding:6px; border-radius:6px;"></div>
+          <div id="m-saved-review" style="font-size:11px; color:var(--text-secondary); margin-top:6px; background:rgba(0,0,0,0.3); padding:8px; border-radius:8px;"></div>
         </div>
       </div>
     </div>
@@ -792,7 +893,7 @@
   </div>
 
   <script>
-    // Film Dataset (matches FilmRepository.kt)
+    // Film Dataset
     const films = [
       {
         id: 1,
@@ -802,7 +903,7 @@
         rating: 8.8,
         duration: "148 menit",
         director: "Christopher Nolan",
-        synopsis: "Dom Cobb adalah seorang pencuri terampil, yang terbaik dalam seni ekstraksi berbahaya: mencuri rahasia berharga dari kedalaman alam bawah sadar selama keadaan mimpi, ketika pikiran berada pada kondisi paling rentan. Keterampilan langka Cobb telah menjadikannya pemain yang didambakan dalam spionase korporat, namun juga menjadikannya buronan internasional. Kini Cobb ditawari kesempatan penebusan dosa melalui misi penanaman ide (inception).",
+        synopsis: "Dom Cobb adalah seorang pencuri terampil, yang terbaik dalam seni ekstraksi berbahaya: mencuri rahasia berharga dari kedalaman alam bawah sadar selama keadaan mimpi, ketika pikiran berada pada kondisi paling rentan. Kini Cobb ditawari kesempatan penebusan dosa melalui misi penanaman ide (inception).",
         posterUrl: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500&q=80",
         youtubeTrailerUrl: "https://www.youtube.com/embed/YoHD9XEInc0",
         videoTrailerUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
@@ -817,7 +918,7 @@
         rating: 8.7,
         duration: "169 menit",
         director: "Christopher Nolan",
-        synopsis: "Ketika bumi di masa depan tidak lagi dapat dihuni akibat badai debu dan krisis pangan, sekelompok penjelajah menggunakan lubang cacing yang baru ditemukan untuk melampaui batas perjalanan ruang angkasa manusia dan menaklukkan jarak yang sangat jauh dalam perjalanan antar bintang demi menyelamatkan kelangsungan hidup umat manusia.",
+        synopsis: "Ketika bumi di masa depan tidak lagi dapat dihuni akibat badai debu dan krisis pangan, sekelompok penjelajah menggunakan lubang cacing yang baru ditemukan untuk melampaui batas perjalanan ruang angkasa manusia demi kelangsungan hidup umat manusia.",
         posterUrl: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500&q=80",
         youtubeTrailerUrl: "https://www.youtube.com/embed/zSWdZVtXT7E",
         videoTrailerUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
@@ -832,7 +933,7 @@
         rating: 9.0,
         duration: "152 menit",
         director: "Christopher Nolan",
-        synopsis: "Dengan bantuan Letnan Jim Gordon dan Jaksa Harvey Dent, Batman berhasil menjaga keamanan di Gotham City. Namun, ketika dalang kriminal psikopat yang dikenal sebagai Joker muncul dan mendatangkan malapetaka di Gotham, Batman harus menerima salah satu ujian psikologis dan fisik terbesar dari kemampuannya untuk melawan ketidakadilan.",
+        synopsis: "Dengan bantuan Letnan Jim Gordon dan Jaksa Harvey Dent, Batman berhasil menjaga keamanan di Gotham City. Namun, dalang kriminal psikopat yang dikenal sebagai Joker muncul mendatangkan kekacauan.",
         posterUrl: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=500&q=80",
         youtubeTrailerUrl: "https://www.youtube.com/embed/EXeTwQWrcwY",
         videoTrailerUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
@@ -847,7 +948,7 @@
         rating: 8.7,
         duration: "140 menit",
         director: "Joaquim Dos Santos, Kemp Powers",
-        synopsis: "Miles Morales terlempar melintasi Multiverse, di mana ia bertemu dengan tim Spider-People yang ditugaskan untuk melindungi keberadaannya. Ketika para pahlawan berselisih tentang cara menangani ancaman baru, Miles mendapati dirinya diadu melawan Spider lainnya dan harus mendefinisikan kembali arti menjadi seorang pahlawan.",
+        synopsis: "Miles Morales terlempar melintasi Multiverse, di mana ia bertemu dengan tim Spider-People yang ditugaskan untuk melindungi keberadaannya.",
         posterUrl: "https://images.unsplash.com/photo-1635805737707-575885ab0820?w=500&q=80",
         youtubeTrailerUrl: "https://www.youtube.com/embed/cqGjhVJWtEg",
         videoTrailerUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
@@ -862,7 +963,7 @@
         rating: 7.0,
         duration: "119 menit",
         director: "Joko Anwar",
-        synopsis: "Beberapa tahun setelah berhasil menyelamatkan diri dari kejadian mengerikan yang membuat mereka kehilangan ibu dan si bungsu Ian, Rini dan adik-adiknya tinggal di rumah susun demi keamanan. Namun, mereka segera menyadari bahaya yang jauh lebih mengerikan menanti di balik dinding rusun tersebut.",
+        synopsis: "Rini dan adik-adiknya tinggal di rumah susun demi keamanan. Namun, mereka segera menyadari bahaya yang jauh lebih mengerikan menanti di balik dinding rusun tersebut.",
         posterUrl: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=500&q=80",
         youtubeTrailerUrl: "https://www.youtube.com/embed/U3l0M4T9m38",
         videoTrailerUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4",
@@ -877,7 +978,7 @@
         rating: 7.8,
         duration: "119 menit",
         director: "Muhadkly Acho",
-        synopsis: "Empat sekawan pengelola wahana rumah hantu di pasar malam yang hampir bangkrut berusaha mencari cara untuk menarik pengunjung. Mereka merombak wahana menjadi sangat menyeramkan hingga seorang politisi meninggal karena jantungan di dalamnya.",
+        synopsis: "Empat sekawan pengelola wahana rumah hantu di pasar malam berusaha mencari cara untuk menarik pengunjung hingga situasi tak terduga terjadi.",
         posterUrl: "https://images.unsplash.com/photo-1514306191717-452ec28c7814?w=500&q=80",
         youtubeTrailerUrl: "https://www.youtube.com/embed/kYgW5-N_mXg",
         videoTrailerUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackSeeTheWorld.mp4",
@@ -892,7 +993,7 @@
         rating: 8.9,
         duration: "180 menit",
         director: "Christopher Nolan",
-        synopsis: "Kisah fisikawan teoretis Amerika J. Robert Oppenheimer, yang memimpin Proyek Manhattan di Laboratorium Los Alamos selama Perang Dunia II, dan perannya dalam pengembangan bom atom pertama di dunia.",
+        synopsis: "Kisah fisikawan teoretis Amerika J. Robert Oppenheimer, yang memimpin Proyek Manhattan selama Perang Dunia II demi sains dan sejarah manusia.",
         posterUrl: "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=500&q=80",
         youtubeTrailerUrl: "https://www.youtube.com/embed/uYPbbksJxIg",
         videoTrailerUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
@@ -907,7 +1008,7 @@
         rating: 8.4,
         duration: "105 menit",
         director: "Lee Unkrich, Adrian Molina",
-        synopsis: "Miguel, anak berusia 12 tahun yang bercita-cita menjadi musisi handal, tiba-tiba terlempar ke Negeri Orang Mati. Di sana ia memulai perjalanan luar biasa bersama penipu ramah bernama Héctor untuk mengungkap rahasia keluarganya.",
+        synopsis: "Miguel, anak berusia 12 tahun yang bercita-cita menjadi musisi, terlempar ke Negeri Orang Mati dan mengungkap rahasia nyata leluhurnya.",
         posterUrl: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=500&q=80",
         youtubeTrailerUrl: "https://www.youtube.com/embed/Rvr68u635JE",
         videoTrailerUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
@@ -920,10 +1021,10 @@
     let searchQuery = "";
     let activeDetailFilm = null;
 
-    // Profile info
+    // Profile info updated to Dzikri Syahdan Wahyudi
     let profile = {
-      name: "Alief Aditiyo Nasokha",
-      nim: "231011400929",
+      name: "Dzikri Syahdan Wahyudi",
+      nim: "231011403402",
       class: "06TPLE004"
     };
 
@@ -950,6 +1051,12 @@
 
       document.getElementById("label-count").innerText = `Menampilkan ${filtered.length} film`;
       document.getElementById("label-active-filter").innerText = currentGenre === "Semua" ? "Katalog Lengkap" : currentGenre;
+
+      // Toggle spotlight banner
+      const spotlightEl = document.getElementById("banner-spotlight");
+      if (spotlightEl) {
+        spotlightEl.style.display = (!searchQuery && currentGenre === "Semua") ? "block" : "none";
+      }
 
       if (filtered.length === 0) {
         container.innerHTML = `

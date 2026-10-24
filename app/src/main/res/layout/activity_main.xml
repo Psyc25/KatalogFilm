@@ -6,17 +6,17 @@
     android:layout_height="match_parent"
     android:background="@color/cinema_dark">
 
-    <!-- Top App Bar / Header -->
+    <!-- Top App Bar / Modern Cyber Header -->
     <LinearLayout
         android:id="@+id/layout_header"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/cinema_surface"
-        android:elevation="4dp"
+        android:elevation="6dp"
         android:orientation="vertical"
         android:paddingHorizontal="16dp"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp"
+        android:paddingTop="14dp"
+        android:paddingBottom="14dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -27,13 +27,21 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:layout_marginEnd="10dp"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/ic_movie"
-                app:tint="@color/primary" />
+            <!-- Glowing Icon Container -->
+            <FrameLayout
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/bg_badge_accent">
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_movie"
+                    app:tint="@color/secondary" />
+            </FrameLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -45,6 +53,7 @@
                     android:id="@+id/tv_header_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:letterSpacing="0.02"
                     android:text="@string/app_name"
                     android:textColor="@color/text_primary"
                     android:textSize="20sp"
@@ -54,9 +63,30 @@
                     android:id="@+id/tv_header_subtitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Mobile Programming • TI UNPAM"
-                    android:textColor="@color/text_muted"
-                    android:textSize="12sp" />
+                    android:layout_marginTop="1dp"
+                    android:text="CineSphere • Dzikri Syahdan Wahyudi"
+                    android:textColor="@color/secondary"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Quick Student Badge -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_badge"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="06TPLE004"
+                    android:textColor="@color/rating_gold"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
         </LinearLayout>
@@ -72,13 +102,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layout_header" />
 
-    <!-- Bottom Navigation View -->
+    <!-- Modern Bottom Navigation View -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/cinema_surface"
-        app:elevation="8dp"
+        app:elevation="10dp"
         app:itemIconTint="@color/selector_nav_color"
         app:itemTextColor="@color/selector_nav_color"
         app:layout_constraintBottom_toBottomOf="parent"

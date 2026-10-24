@@ -115,6 +115,15 @@ class FilmListFragment : Fragment() {
             binding.tvActiveFilter.text = currentFilterGenre
             loadFilms()
         }
+
+        binding.layoutSpotlight.setOnClickListener {
+            FilmRepository.getFilmById(1)?.let { film ->
+                val intent = Intent(requireContext(), DetailFilmActivity::class.java).apply {
+                    putExtra(DetailFilmActivity.EXTRA_FILM, film)
+                }
+                startActivity(intent)
+            }
+        }
     }
 
     private fun loadFilms() {
@@ -127,6 +136,13 @@ class FilmListFragment : Fragment() {
         filmAdapter.updateData(filteredFilms)
 
         binding.tvFilmCount.text = "Menampilkan ${filteredFilms.size} film"
+
+        // Spotlight banner is only visible on full catalog view without active search
+        binding.layoutSpotlight.visibility = if (currentSearchQuery.isEmpty() && currentFilterGenre == "Semua Film") {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
 
         if (filteredFilms.isEmpty()) {
             binding.rvFilms.visibility = View.GONE

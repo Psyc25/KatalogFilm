@@ -14,39 +14,84 @@
         android:padding="16dp"
         android:paddingBottom="48dp">
 
-        <!-- Student Profile Card -->
+        <!-- Modern Student ID Pass Card -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardBackgroundColor="@color/cinema_card"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="4dp"
-            app:strokeColor="@color/unpam_blue"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="6dp"
+            app:strokeColor="@color/primary"
             app:strokeWidth="1.5dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="18dp">
+                android:orientation="vertical">
+
+                <!-- Top Badge Strip -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_hero_gradient"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="10dp">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:contentDescription="Universitas"
+                        android:src="@drawable/ic_school"
+                        app:tint="@color/secondary" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:letterSpacing="0.05"
+                        android:text="UNIVERSITAS PAMULANG"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_badge"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="2dp"
+                        android:text="ACTIVE"
+                        android:textColor="@color/secondary"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
                 <!-- Avatar and Main Name -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:padding="18dp">
 
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/iv_profile_avatar"
-                        android:layout_width="72dp"
-                        android:layout_height="72dp"
-                        android:background="@drawable/bg_poster_placeholder"
-                        android:contentDescription="Foto Profil Mahasiswa"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/ic_person"
-                        app:shapeAppearanceOverlay="@style/CircleImageShape"
-                        app:tint="@color/secondary" />
+                    <FrameLayout
+                        android:layout_width="76dp"
+                        android:layout_height="76dp">
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/iv_profile_avatar"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/bg_badge_accent"
+                            android:contentDescription="Foto Profil Mahasiswa"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_person"
+                            app:shapeAppearanceOverlay="@style/CircleImageShape"
+                            app:tint="@color/secondary" />
+                    </FrameLayout>
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -59,17 +104,17 @@
                             android:id="@+id/tv_profile_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Alief Aditiyo Nasokha"
+                            android:text="Dzikri Syahdan Wahyudi"
                             android:textColor="@color/text_primary"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/tv_profile_nim"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
-                            android:text="NIM: 231011400929"
+                            android:layout_marginTop="3dp"
+                            android:text="NIM: 231011403402"
                             android:textColor="@color/secondary"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -91,33 +136,26 @@
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:contentDescription="Edit Identitas"
                         android:src="@drawable/ic_movie"
-                        app:tint="@color/text_secondary" />
+                        app:tint="@color/secondary" />
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginVertical="14dp"
+                    android:layout_marginHorizontal="18dp"
                     android:background="@color/cinema_card_stroke" />
 
                 <!-- Academic Info -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:paddingHorizontal="18dp"
+                    android:paddingVertical="14dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="UNIVERSITAS PAMULANG"
-                        android:textColor="@color/unpam_yellow"
-                        android:textSize="13sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
                         android:text="Fakultas Ilmu Komputer • Teknik Informatika S-1"
                         android:textColor="@color/text_secondary"
                         android:textSize="12sp" />
@@ -135,7 +173,7 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Stats Row -->
+        <!-- Modern Stats Grid -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -149,7 +187,7 @@
                 android:layout_marginEnd="6dp"
                 android:layout_weight="1"
                 app:cardBackgroundColor="@color/cinema_card"
-                app:cardCornerRadius="12dp"
+                app:cardCornerRadius="16dp"
                 app:strokeColor="@color/cinema_card_stroke"
                 app:strokeWidth="1dp">
 
@@ -158,14 +196,14 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="12dp">
+                    android:padding="14dp">
 
                     <TextView
                         android:id="@+id/tv_stat_total_films"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="10"
-                        android:textColor="@color/text_primary"
+                        android:text="8"
+                        android:textColor="@color/secondary"
                         android:textSize="22sp"
                         android:textStyle="bold" />
 
@@ -186,7 +224,7 @@
                 android:layout_marginHorizontal="3dp"
                 android:layout_weight="1"
                 app:cardBackgroundColor="@color/cinema_card"
-                app:cardCornerRadius="12dp"
+                app:cardCornerRadius="16dp"
                 app:strokeColor="@color/cinema_card_stroke"
                 app:strokeWidth="1dp">
 
@@ -195,7 +233,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="12dp">
+                    android:padding="14dp">
 
                     <TextView
                         android:id="@+id/tv_stat_total_favorites"
@@ -223,7 +261,7 @@
                 android:layout_marginStart="6dp"
                 android:layout_weight="1"
                 app:cardBackgroundColor="@color/cinema_card"
-                app:cardCornerRadius="12dp"
+                app:cardCornerRadius="16dp"
                 app:strokeColor="@color/cinema_card_stroke"
                 app:strokeWidth="1dp">
 
@@ -232,14 +270,14 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="12dp">
+                    android:padding="14dp">
 
                     <TextView
                         android:id="@+id/tv_stat_total_reviews"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
-                        android:textColor="@color/secondary"
+                        android:textColor="@color/rating_gold"
                         android:textSize="22sp"
                         android:textStyle="bold" />
 
@@ -255,13 +293,13 @@
 
         </LinearLayout>
 
-        <!-- Exam Rubric & Lecturer Team Card -->
+        <!-- Academic Advisor & Rubric Card -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             app:cardBackgroundColor="@color/cinema_card"
-            app:cardCornerRadius="14dp"
+            app:cardCornerRadius="16dp"
             app:strokeColor="@color/cinema_card_stroke"
             app:strokeWidth="1dp">
 
@@ -321,7 +359,8 @@
             android:layout_marginTop="16dp"
             android:text="Ubah Nama &amp; NIM Mahasiswa"
             android:textColor="@color/text_primary"
-            app:backgroundTint="@color/cinema_surface" />
+            app:backgroundTint="@color/cinema_surface_light"
+            app:cornerRadius="24dp" />
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
